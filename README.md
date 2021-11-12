@@ -12,6 +12,12 @@ Read
 get all
 http://localhost:8080/student-management-system/api/v1/students
 
+get all with lastname
+http://localhost:8080/student-management-system/api/v1/students/lastname
+
+Query 
+lasname nehl
+
 Update 
 http://localhost:8080/student-management-system/api/v1/students/
 {

@@ -25,12 +25,23 @@ public class StudentRest {
         studentService.createItem(student);
         return ok(student).build();
     }
+@Path("lastname")
+@GET
+public Response getAllWithThisLastname(@QueryParam("lastname") String lastname){
+    List<Student> foundStudentsWithThisLastname= studentService.getAllStudentsWithThisLastname(lastname);
+
+    System.out.println(foundStudentsWithThisLastname.size());
+
+    return Response.ok(foundStudentsWithThisLastname).build();
+        //String out = lastname.toString();
+        //return Response.ok().entity(out).build();
+}
 
     @Path("")
     @GET
-    public Response getAllItem(){
-        List<Student> foundItems= studentService.getAllStudents();
-        return Response.ok(foundItems).build();
+    public Response getAllStudents(){
+        List<Student> allStudents= studentService.getAllStudents();
+        return Response.ok(allStudents).build();
     }
 
     @Path("")

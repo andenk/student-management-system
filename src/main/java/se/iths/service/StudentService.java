@@ -35,4 +35,10 @@ public class StudentService {
         entityManager.merge(student);
         return student;
     }
+
+    public List<Student> getAllStudentsWithThisLastname(String lastname) {
+
+        return  entityManager.createQuery("SELECT s from Student s where s.lastName = 'ne'", Student.class).getResultList();
+
+    }
 }
