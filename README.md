@@ -1,8 +1,8 @@
 Create 
 http://localhost:8080/student-management-system/api/v1/students
 {
-	"firstName": "a",
-	"lastName": "f",
+	"firstName": "andreas",
+	"lastName": "nehl",
 	"email": "e",
 	"phoneNumber": "070"
 }
@@ -17,6 +17,10 @@ http://localhost:8080/student-management-system/api/v1/students/lastname
 
 Query 
 lasname nehl
+
+get by id
+http://localhost:8080/student-management-system/api/v1/students/1
+
 
 Update 
 http://localhost:8080/student-management-system/api/v1/students/

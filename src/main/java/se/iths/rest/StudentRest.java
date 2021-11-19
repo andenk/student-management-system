@@ -1,19 +1,14 @@
 package se.iths.rest;
 
 
-import se.iths.converter.Converter;
 import se.iths.entity.Student;
-
-import se.iths.exeption.CustomException;
 import se.iths.exeption.MyException;
 import se.iths.service.StudentService;
-
 import javax.inject.Inject;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.util.*;
-
 import static javax.ws.rs.core.Response.*;
 
 @Path("students")
@@ -44,6 +39,7 @@ public class StudentRest {
 
 
             if (foundStudentsWithThisLastname.isEmpty()) {
+
                 throw new WebApplicationException(Response.status(Response.Status.NOT_FOUND).entity("{\" No Student registered with lastname "+ lastname+"\"}" ).build());
             }
 
@@ -53,10 +49,9 @@ public class StudentRest {
 
     @Path("")
     @GET
-    public Response getAllStudents() throws CustomException {
+    public Response getAllStudents(){
         List<Student> allStudents = studentService.getAllStudents();
             if (allStudents.isEmpty()) {
-                
 
               throw new WebApplicationException(Response.status(Response.Status.NOT_FOUND).entity("{\" No Student registered \"}").build());
             }
@@ -71,7 +66,6 @@ public class StudentRest {
         String responseMessage =  "{\" No Student with ID " + id + " \"}";
         if(foundStudent == null){
 
-
             throw new WebApplicationException(Response.status(Response.Status.NOT_FOUND).entity(responseMessage).build());
         }
        return Response.ok(foundStudent).build();
@@ -83,6 +77,7 @@ public class StudentRest {
 
         Student idForStudent = studentService.findStudentById(student.getId());
             if (idForStudent == null) {
+
                 throw new WebApplicationException(Response.status(Response.Status.NOT_FOUND).entity("{\" No Student found for update \"}").build());
             }
 
@@ -100,7 +95,8 @@ public class StudentRest {
 
         if (idForStudent == null) {
 
-            throw new WebApplicationException(Response.status(Response.Status.NOT_FOUND).entity( "{\" No Student delete at " + id + " \"}").build());
+            throw new MyException(responseMessage);
+
             }
 
         studentService.deleteStudent(id);
