@@ -38,7 +38,12 @@ public class StudentService {
 
     public List<Student> getAllStudentsWithThisLastname(String lastname) {
 
-        return  entityManager.createQuery("SELECT s from Student s where s.lastName = 'ne'", Student.class).getResultList();
+        return  entityManager.createQuery("SELECT s from Student s where s.lastName = '"+lastname+"'", Student.class).getResultList();
 
+    }
+
+    public Student findStudentById(Long id) {
+
+        return entityManager.find(Student.class, id);
     }
 }
