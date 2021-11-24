@@ -1,11 +1,11 @@
 package se.iths.entity;
 
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.json.bind.annotation.JsonbTransient;
+import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 public class Student {
@@ -21,8 +21,31 @@ public class Student {
     @NotEmpty
     private String email;
     private String phoneNumber;
+    @ManyToMany
+    @JoinTable(
+            name = "student_subject",
+            joinColumns = @JoinColumn(name = "student_id"),
+            inverseJoinColumns = @JoinColumn(name = "subject_id"))
+    private List<Subject> linkedSubject = new ArrayList<>();
 
-    public Long getId() {
+    public void addSubject(Subject subject) {
+        linkedSubject.add(subject);
+        subject.addStudent(this);
+    }
+
+
+    public Student(@NotEmpty String firstName, @NotEmpty String lastName, @NotEmpty String email, String phoneNumber) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.phoneNumber = phoneNumber;
+    }
+
+    public Student() {
+    }
+
+
+  public Long getId() {
         return id;
     }
 
@@ -62,5 +85,13 @@ public class Student {
         this.phoneNumber = phoneNumber;
     }
 
+    @JsonbTransient
+    public List<Subject> getLinkedSubject() {
+        return linkedSubject;
+    }
+
+    public void setLinkedSubject(List<Subject> linkedSubject) {
+        this.linkedSubject = linkedSubject;
+    }
 
 }
